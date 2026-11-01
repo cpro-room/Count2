@@ -32,6 +32,11 @@ jobs:
         with:
           path: "."
 
+      - name: Cancel stuck deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api --method POST repos/cpro-room/Count2/pages/deployments/2f2b24fd59cb57d32f8a34323af80cbbf7bdbeb6/cancel
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
