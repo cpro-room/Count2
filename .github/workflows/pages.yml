@@ -1,3 +1,4 @@
+
 name: Deploy to GitHub Pages
 
 on:
@@ -11,15 +12,16 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
-  
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,16 +34,6 @@ jobs:
         with:
           path: "."
 
-      - name: Mark stuck deployment inactive
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api --method POST repos/cpro-room/Count2/deployments/7470696928/statuses -f state=failure -f description="Clear stuck deployment"
-
-      - name: Delete stuck deployment
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api --method DELETE repos/cpro-room/Count2/deployments/7470696928
-        
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
