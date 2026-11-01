@@ -260,10 +260,11 @@ function startPractice() {
   }
 
   words = shuffle(words);
-  currentIndex = 0;
-  revealed = false;
+currentIndex = 0;
+revealed = false;
+document.getElementById("question").classList.remove("finished");
 
-  render();
+render();
 }
 
 function shuffle(arr) {
@@ -377,6 +378,7 @@ if (currentIndex >= words.length) {
   return;
 }
 
+  question.classList.remove("finished");
   const word = words[currentIndex];
 
   label.textContent = word.label;
