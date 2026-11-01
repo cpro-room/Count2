@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  deployments: write
 
 concurrency:
   group: "pages"
@@ -32,11 +33,16 @@ jobs:
         with:
           path: "."
 
-      - name: Cancel stuck deployment
+      - name: Mark stuck deployment inactive
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api --method POST repos/cpro-room/Count2/pages/deployments/2f2b24fd59cb57d32f8a34323af80cbbf7bdbeb6/cancel
+        run: gh api --method POST repos/cpro-room/Count2/deployments/7470696928/statuses -f state=failure -f description="Clear stuck deployment"
 
+      - name: Delete stuck deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api --method DELETE repos/cpro-room/Count2/deployments/7470696928
+        
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
