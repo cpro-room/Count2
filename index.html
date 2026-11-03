@@ -42,10 +42,31 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
+  width: 100%;
+  max-width: none;
+  flex-shrink: 0;
+  margin: 5px 0 12px;
+}
+
+.type-menu-wrap {
+  position: relative;
   width: 90%;
   max-width: 450px;
   flex-shrink: 0;
-  margin: 5px 0 12px;
+  display: flow-root;
+}
+
+.portal-back-btn {
+    padding: 8px 18px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 10px;
+    background: #1976d2;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .type-button {
@@ -190,13 +211,22 @@ gtag('config', 'G-DDD1Y5SELD');
 
 <img src="logo.png" class="logo" alt="logo">
 
-<div class="type-buttons" id="typeButtons"></div>
+<div class="type-menu-wrap">
+
+    <div class="type-buttons" id="typeButtons"></div>
+
+</div>
 
 <div class="question-label" id="questionLabel"></div>
 <div class="question" id="question"></div>
 <div class="reading" id="reading"></div>
 
 <button class="next-button" id="nextButton" onclick="handle()">▶</button>
+
+<button class="portal-back-btn"
+        onclick="location.href='https://cpro-room.github.io/JP-Learning/'">
+    Back
+</button>
 
 </div>
 
